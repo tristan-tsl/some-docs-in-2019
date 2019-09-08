@@ -1,0 +1,30 @@
+TIDB 3.0-GA 6月底即将发布
+
+
+怎么做?
+	初始导入
+		TiDB Lightning
+	增量导入
+		使用 Syncer  将 TIDB 作为 MySQL Slave 接在 原业务mysql后
+			DM - Data Migration
+			
+
+
+host1	192.168.1.101	PD1 & TiDB	/data		16+8
+host2	192.168.1.102	PD2	/data				8
+host3	192.168.1.103	PD3	/data				8
+host4	192.168.1.104	TiKV1	/data			32
+host5	192.168.1.105	TiKV2	/data			32
+host6	192.168.1.106	TiKV3	/data			32
+
+
+组件	CPU		内存	本地存储		网络		实例数量(最低要求)
+TiDB	8核+	16 GB+	无特殊要求		千兆网卡	1（可与 PD 同机器）
+PD		4核+	8 GB+	SAS, 200 GB+	千兆网卡	2（可与 TiDB 同机器）
+TiKV	8核+	32 GB+	SSD, 200 GB+	千兆网卡	3
+
+
+16+8+24+96=144 G
+
+
+快速入门

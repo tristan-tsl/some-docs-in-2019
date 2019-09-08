@@ -1,0 +1,18 @@
+前后端合并
+	基于nodejs
+	
+前端:
+	思路一:
+		vue + axios + ...
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	思路二:
+		websocket
+后端:
+	egg
+		npm init egg --type=simple
+		npm i
+		
+		https://eggjs.org/en/intro/quickstart.html
+		
+

@@ -1,0 +1,27 @@
+# 配置 共享库位置的环境变量
+vi ~/.bash_profile
+
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/19.3/client64/lib/
+
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+
+
+echo $LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/19.3/client64/lib/
+
+vi /etc/ld.so.conf
+
+/usr/lib/oracle/19.3/client64/lib
+
+ldconfig
+
+
+
+
+
+
+
+参考文档:
+https://blog.csdn.net/leshami/article/details/26356115

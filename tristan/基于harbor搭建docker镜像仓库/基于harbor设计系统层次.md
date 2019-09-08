@@ -1,0 +1,67 @@
+目前情况
+
+ebuycloud项目
+
+java开发团队
+
+dev/preproduct/product 环境
+
+镜像仓库地址:
+
+dockerregistry.yibainetwork.com
+
+仓库名称
+
+ebuycloud-java-dev
+
+ebuycloud-java-preproduct
+
+ebuycloud-java-product
+
+
+
+dockerregistry.yibainetwork.com/ebuycloud-java-dev
+
+dockerregistry.yibainetwork.com/ebuycloud-java-dev
+
+
+
+robot$ebuycloud-java-dev
+
+```
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjIyMDU4MDAsImlhdCI6MTU1OTYxMzgwMCwiaXNzIjoiaGFyYm9yLXRva2VuLWlzc3VlciIsImlkIjozLCJwaWQiOjIsImFjY2VzcyI6W3siUmVzb3VyY2UiOiIvcHJvamVjdC8yL3JlcG9zaXRvcnkiLCJBY3Rpb24iOiJwdXNoIiwiRWZmZWN0IjoiIn0seyJSZXNvdXJjZSI6Ii9wcm9qZWN0L2VidXljbG91ZC1qYXZhLWRldi9yZXBvc2l0b3J5IiwiQWN0aW9uIjoicHVzaCIsIkVmZmVjdCI6IiJ9XX0.X0_NEivEh12jYT5F6eMnRHTa5tXUwyxgYgcw0gf05ODTDwtUsVBkQc1mY1IPha3B2Et9hjTBM89Id-3SJklS6RRe6vOgClKbawY2ilULWkppfQkhqMbE7BQ09VrvPr_bNORZwlY8OJaajwbQd3ebQ-f9LkaFjWg7_Czbux-xQ0SRA-Z5ojSQ3xnFwtwGsat3vVSiyZKYXhI-uCiOAqd4z28pgXEPm-wvtY6Pl9akn15XgJPeaNb4Uk_wg7os7I1JNJjZoQzta44xlRLSENXXGTDRAkTKGYlOQF-w0boA5yUdEd44RbmMJaLGNXjIo_52wYw5CD7K2O11Uydxwap1innziJ3hLeWumgBi9YN6o7Kry80zucFl6wqtORPtHcEP309cNJJlGCBqxwRzdoy0H0AIUwArR3wzaZtBfAQDWQcfkNE4jkT6dtzFFok8PauCZsVUAOn_qqjXXjgJlaQ1pnxylUmK7BjPjcET4lzTsm5dd_YoRHTjn7LpVEERppSx6Nni4Nuqup1xRNPK2DbUmy0XabcUt0ul8tpHHGFmve6Yawsf_-Y0I1YmayrizmA_hHy22_0f7vXj2T98t3ilBAZORbD6Weh7-mBqw3_DY4PHm-b3hqOSq5nBarI4ql5b6l1NQ9kINyh2pGYoFezL-uZINDwspfxO5ldNsXVIn3U
+```
+
+
+
+ebuycloud-java-dev
+
+Tristan4001
+
+
+
+
+
+模拟测试
+
+```
+docker tag dockerregistry.yibainetwork.com/ebuycloud-java-dev/service-risk:1.1-SNAPSHOT.201906040216 dockerregistry.yibainetwork.com/ebuycloud-java-dev/service-risk:1.1-SNAPSHOT.201906040216
+
+docker push dockerregistry.yibainetwork.com/ebuycloud-java-dev/service-risk:1.1-SNAPSHOT.201906040216
+
+docker rmi dockerregistry.yibainetwork.com/ebuycloud-java-dev/service-risk:1.1-SNAPSHOT.201906040216
+
+docker pull dockerregistry.yibainetwork.com/ebuycloud-java-dev/service-risk:1.1-SNAPSHOT.201906040216
+```
+
+
+
+
+
+# 测试阿里云镜像仓库
+
+```
+docker rmi 
+```
+
+ctnuser@yibainetwork.onaliyun.com		rbI5OF82Zny4

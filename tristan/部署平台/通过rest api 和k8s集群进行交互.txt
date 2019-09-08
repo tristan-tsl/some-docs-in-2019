@@ -1,0 +1,46 @@
+http://manage.dev.java.yibainetworklocal.com:8765/r/projects/1a5/kubernetes-dashboard:9090/api/v1/namespaces/default/pods
+
+
+/api/v1/namespaces/default/pods
+
+
+http://manage.dev.java.yibainetworklocal.com:8765/r/projects/1a5/kubernetes-dashboard:9090
+
+
+查看预览信息
+http://manage.dev.java.yibainetworklocal.com:8765/r/projects/1a5/kubernetes-dashboard:9090/api/v1/overview/logging
+http://manage.dev.java.yibainetworklocal.com:8765/r/projects/1a5/kubernetes-dashboard:9090/api/v1/namespaces/default/
+
+
+
+https://blog.csdn.net/jinzhencs/article/details/51452208
+https://www.infoq.cn/article/Kubernetes-API/?amp&amp&amp
+http://www.showerlee.com/archives/2804
+
+zHgmjZVnwwyddYPJSBjwCBHNL13orr2bCSovuJxz
+
+zHgmjZVnwwyddYPJSBjwCBHNL13orr2bCSovuJxz
+
+rtyc5QccNquCP5VhGT3KyhJmfvVekCmtXffihvDe
+
+
+
+https://github.com/josdejong/jsoneditor
+
+
+得到k8s 的认证调用的token值
+
+
+rm -rf test_base64_value encode_dev_keycode84 encode_dev_keycode120
+echo "FF6C1A44B7500C0F752C:Tyac3cz69p9c4JnmERbJAc26MoJA9y1CwGzzUhWR" > test_base64_value
+echo "Basic " > encode_dev_keycode84
+base64 test_base64_value >> encode_dev_keycode84
+base64 encode_dev_keycode84 >> encode_dev_keycode120
+cat encode_dev_keycode120
+
+
+
+http://manage.dev.java.yibainetworklocal.com:8765/r/projects/1a7/kubernetes:6443
+
+
+http://manage.dev.java.yibainetworklocal.com:8765/r/projects/1a7/kubernetes:9090/v1/namespaces/default/

@@ -1,0 +1,107 @@
+在monitorning命名空间中部署
+
+
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: webhook-dingtalk
+  name: webhook-dingtalk
+  namespace: monitoring
+  #需要和alertmanager在同一个namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webhook-dingtalk
+  template:
+    metadata:
+      labels:
+        app: webhook-dingtalk
+    spec:
+      containers:
+      - image: billy98/webhook-dingtalk:latest
+        name: webhook-dingtalk
+        args:
+        - "https://oapi.dingtalk.com/robot/send?access_token=xxxxxx"
+        #上面创建的钉钉机器人hook
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+          tcpSocket:
+            port: 8080
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+          httpGet:
+            port: 8080
+            path: /
+      imagePullSecrets:
+        - name: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webhook-dingtalk
+  name: webhook-dingtalk
+  namespace: monitoring
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: webhook-dingtalk
+  type: ClusterIP 
+
+
+
+
+在grafana中创建channel
+类型: webhook
+地址: http://webhook-dingtalk.monitoring/dingtalk/send/
+请求类型: POST
+
+
+在资源面板设置alert
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

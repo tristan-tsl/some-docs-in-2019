@@ -1,0 +1,145 @@
+php:
+	1、启动流程并初始化人员分配
+		传入: 模板定义key,返回流程id,将该流程id存到该spu所在数据中
+		post http://localhost:8086/flowable-rest/service/runtime/process-instances
+		{
+			"processDefinitionKey":"generalProductModel"
+		}
+	2、设置流程总线可执行变量
+		$nodeId$ 取值为 dev、qa、gateway、doc、photo、pic1、pic2、end		开发部、品控部、网关、文案部、摄影部、美工1、美工2、结束节点
+		$enable$ 取值为 1、0、2		走、不走、返回
+		传入: 流程id,['main_executable_value':[{'is_to_$nodeId$':'$enable$'},......]]
+		put http://localhost:8086/flowable-rest/service-extra/processInstanceVariables/{process-instance-id}
+		[
+			{
+			"name":"main_executable_value",
+			"value":[{"is_to_dev":"1"},{"is_to_qa":"1"},{"is_to_gateway":"1"},{"is_to_doc":"0"},{"is_to_photo":"0"},{"is_to_pic1":"1"},{"is_to_pic2":"1"},{"is_to_end":"0"}]
+			}
+		]
+	3、查看该流程所有可操作的节点、查看当前执行者、上级执行者、下级执行者、历史执行者
+		get http://localhost:8086/flowable-rest/service-extra/processOperateNodes/{process-instances}
+		响应数据:
+			{
+				"all": [
+					{
+						"id": "qa",
+						"name": "品控部",
+						"assign": "${qa_assign}"
+					},
+					{
+						"id": "doc",
+						"name": "文案部",
+						"assign": "${doc_assign}"
+					},
+					{
+						"id": "photo",
+						"name": "摄影部",
+						"assign": "${photo_assign}"
+					},
+					{
+						"id": "pic1",
+						"name": "美工1",
+						"assign": "${pic1_assign}"
+					},
+					{
+						"id": "pic2",
+						"name": "美工2",
+						"assign": "${pic2_assign}"
+					},
+					{
+						"id": "dev",
+						"name": "开发部",
+						"assign": "${dev_assign}"
+					}
+				],
+				"next": [
+					{
+						"id": "dev",
+						"name": "开发部",
+						"assign": "${dev_assign}"
+					},
+					{
+						"id": "qa",
+						"name": "品控部",
+						"assign": "${qa_assign}"
+					},
+					{
+						"id": "doc",
+						"name": "文案部",
+						"assign": "${doc_assign}"
+					},
+					{
+						"id": "photo",
+						"name": "摄影部",
+						"assign": "${photo_assign}"
+					},
+					{
+						"id": "pic1",
+						"name": "美工1",
+						"assign": "${pic1_assign}"
+					},
+					{
+						"id": "pic2",
+						"name": "美工2",
+						"assign": "${pic2_assign}"
+					}
+				],
+				"current": [
+					{
+						"id": "dev",
+						"name": "开发部",
+						"assign": "dev2"
+					}
+				],
+				"previous": [],
+				"history": [
+					{
+						"id": "dev",
+						"name": "开发部",
+						"assign": "dev2"
+					}
+				]
+			}
+	5、完结流程
+		传入: 流程id
+		post http://localhost:8086/flowable-rest/service-extra/processInstanceComplete/{process-instance_id}/{user-dept-id}
+		
+		
+	具体业务中: 在启动流程图时 1启动流程 + 2给流程设置总线可执行变量
+				驳回操作中 2给流程设置总线可执行变量 3完结流程
+		200
+			
+	6、查看流程图
+		http://localhost:8086/flowable-rest/service/runtime/process-instances/{process-instance}/diagram
+		返回一个图片
+		
+	7、查看所有流程
+		http://localhost:8086/flowable-rest/service/runtime/process-instances
+	
+注意:
+	不需要指定运行的需要指定为0而不是不写,不写在一定概率会导致流程完结失败,因为流程图中会引用该变量,首个节点需要设置为2,由开始事件指向该节点
+	只能改下一级流程的执行者
+
+==================================================================================================================================
+业务:	
+画流程图的时候要注意的问题:
+	每一个人物节点要设置id,在分支网关跳人物节点的连线需要设置判断值(is_to_dev=='1'),该值来自总线流程值，在人物节点跳分支网关的连线设置判断值(id_to_dev=='2')
+	全局流程需要设置任务事件监听器 TaskComplete testExecutionListener
+	人物节点的分配人需要设置从变量中取值,例如 ${dev_assign}
+	
+	
+http://192.168.71.146:8080/flowable-admin 		管理访问映射、管理部署情况
+
+http://192.168.71.146:8080/flowable-idm	      	管理用户、用户组、访问权限
+
+http://192.168.71.146:8080/flowable-modeler		设计器
+
+http://192.168.71.146:8080/flowable-task			创建任务、流程、表单、应用、决策
+
+http://192.168.71.146:8080/flowable-rest/docs			提供rest接口访问flowable流程引擎,例如:
+
+​	http://192.168.71.146:8080/flowable-task/process-api/repository/models 	所有定义的模型
+
+​	http://192.168.71.146:8080/flowable-task/process-api/repository/process-definitions	所有的模型定义
+
+​	http://192.168.71.146:8080/flowable-task/process-api/repository/deployments	所有的部署

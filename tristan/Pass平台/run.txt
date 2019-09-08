@@ -1,0 +1,29 @@
+docker pull registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1223_201908281818
+docker stop pass
+docker rm   pass
+
+mkdir -p  /data/tristan/projects/pass/configs
+mkdir -p  /data/tristan/projects/pass/logs
+
+docker login --username=ctnuser@yibainetwork registry.cn-shenzhen.aliyuncs.com
+
+docker pull registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1189_201908241021
+
+docker run \
+    --network some-network \
+    --name pass \
+    --restart=always \
+    -e devops_platform_project_crypto_key=FTxo9FuuJUc81_cfpKquIUmqw3KMaMaq9R8cKYD_Sqg= \
+    -v /data/tristan/projects/pass/configs/:/usr/src/app/configs/ \
+    -v /data/tristan/projects/pass/logs/:/usr/src/app/logs/ \
+    -p 80:8080 \
+     -d \
+    registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1223_201908281818
+
+docker logs -f pass
+
+
+°²×°ÍøÂç¼à¿Ø
+yum install -y iftop
+²é¿´ÍøÂç¼à¿Ø
+iftop -n

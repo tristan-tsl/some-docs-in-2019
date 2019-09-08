@@ -1,0 +1,657 @@
+数据流转语言介绍:
+	{}为数据模型展开
+	[]为条件限制
+		=为判断等于的条件
+	->为映射,默认为该入值的名称
+	$xxx$为引用映射值
+	->{}为条件数据模型
+	xxx{}为该值为对象
+	-(xxx)->为赋值演变过程操作
+	- 注释
+
+
+
+yibai_product{
+	yibai_amazon_listing{
+		seller_sku ->
+		account_id ->
+		sku -> SKU
+		siteid -> FBA站点
+		asin1 -> ASIN
+		item_name -> 产品名称
+		status -> Listing状态
+	}
+	yibai_amazon_sku_map{
+		saler_name -> 销售人员
+	}[seller_sku=$seller_sku$
+		account_id=$account_id$]
+	
+	yibai_amazon_fba_inventory{
+		fnsku -> fnsku
+	}[seller_sku=$seller_sku$
+		account_id=$account_id$]
+}
+
+
+
+
+yibai_system{
+	yibai_user{
+		id ->
+	}[user_name=$saler_name$]
+	
+	yibai_department{
+		department_name -> 销售组
+	}[id=$id$]
+	
+	yibai_amazon_account{
+		account_name -> 账号名称
+	}[account_id=$account_id$]
+}
+
+YibaiEbuyFbaPlaceVoMapper
+
+
+
+DataSourceSwitch
+yibai_product
+yibai_system
+
+YibaiEbuyFbaPlaceVoMapper.xml
+
+
+
+
+
+
+
+
+
+
+
+
+39.108.85.90:3306/yibai_warehouse
+39.108.226.71:3306/yb_wms0411
+47.112.16.65:3306/hwc
+61.145.168.162:20003/yb_wms0411
+
+易佰erp亚马逊模块数据表注释
+yibai_system{
+	yibai_amazon_accout{
+		`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '流水ID',
+		`account_name` varchar(50) NOT NULL, 账号名
+		`short_name` varchar(30) NOT NULL COMMENT '账号简称',
+		`merchant_id` varchar(50) NOT NULL, 商城ID
+		`mws_auth_token` varchar(80) DEFAULT NULL, 第三方授权密钥
+		`market_place_id` varchar(50) NOT NULL, 市场ID
+		`aws_access_key_id` varchar(100) NOT NULL, KeyID
+		`secret_key` varchar(100) NOT NULL, 密钥(私钥)
+		`service_url` varchar(255) DEFAULT NULL, API链接
+		`status` tinyint(2) DEFAULT '1' COMMENT '状态 1启用2停用',
+		`site` varchar(32) DEFAULT NULL COMMENT '站点',
+		`group_id` tinyint(4) DEFAULT NULL COMMENT '分组',
+		`sort` int(11) DEFAULT '1' COMMENT '排序',
+		`upc_need` tinyint(4) NOT NULL DEFAULT '2' COMMENT '2表示启用UPC，3表示禁用UPC',
+		`account_group` varchar(50) NOT NULL COMMENT '站点所属账号',
+		`color` varchar(10) DEFAULT NULL COMMENT '颜色',
+		`account_num` varchar(50) DEFAULT NULL COMMENT '账号编号',
+		`amzsite_email` varchar(100) DEFAULT NULL,
+		`email_auth` varchar(35) DEFAULT NULL,
+		`is_distribute` tinyint(4) DEFAULT '0',
+		`developer_id` varchar(20) DEFAULT NULL,
+		`is_authorized_myself` tinyint(4) DEFAULT '1',
+		`authorized_account` int(11) DEFAULT NULL
+	}
+}
+yibai_product{
+	yibai_amazon_fba_inventory{
+		`id`
+		`account_id` //账户ID
+		`eur` //泛欧
+		`sku` //亚马逊sku
+		`fnsku` //物流sku
+		`asin` // asin
+		`product_name` //品名
+		`short_product_name` //短品名
+		`image_url` //产品图片
+		`condition` //
+		`your_price` //售价
+		`mfn_listing_exists` 
+		`mfn_fulfillable_quantity` //自发货可用库存
+		`afn_listing_exists`
+		`afn_warehouse_quantity` //亚马逊在库库存
+		`afn_fulfillable_quantity` //亚马逊可用库存
+		`afn_unsellable_quantity` //亚马逊不可卖库存
+		`afn_reserved_quantity` //亚马逊预留库存
+		`afn_total_quantity` //亚马逊总库存
+		`per_unit_volume` 
+		`afn_inbound_working_quantity` //在途预发数量
+		`afn_inbound_shipped_quantity` //在途已发数量
+		`afn_inbound_receiving_quantity` //在途接收数量
+		`is_to_erp`	
+	}
+}
+yibai_purchase{
+	yibai_fba_freight_receipts{
+		`id`
+		`account_id` //账户ID
+		`received_date_old` 
+		`received_date` //到货日期
+		`fnsku` //物流sku
+		`sku` //亚马逊sku
+		`product_name` //品名
+		`quantity` //接收数量
+		`fba_shipment_id` //单号
+		`fulfillment_center_id` //亚马逊仓库ID
+		`create_date`
+	}
+
+}
+yibai_order{
+	yibai_amazon_flat_order_price_statistic{
+		`id`
+		`account_id` //账户ID
+		`date` //日期(每天)
+		`afn` //FBA金额
+		`mfn` //FBM金额
+		`total` //总金额
+		`statistic_date` 统计日期	
+	}
+	yibai_amazon_flat_order_quantity_statistic{
+		`id`
+		`account_id` //账户ID
+		`date` //日期(每天)
+		`afn` //FBA数量
+		`mfn` //FBM数量
+		`total` //总数量
+		`statistic_date`	
+	}
+	
+}
+
+
+	
+==============================================================================================
+FBA刊登表:
+亚马逊接口文档:http://docs.developer.amazonservices.com/en_US/reports/Reports_RequestReport.html
+
+亚马逊接口{
+  SellerSku -> 
+  accountId ->
+  ASIN ->
+  FBA站点 ->
+  产品名称 ->
+  Listing状态 ->
+}[@method=post
+  ReportType=_GET_MERCHANT_LISTINGS_ALL_DATA_]
+yibai_product{
+	yibai_amazon_sku_map{
+		saler_name	-> 销售人员
+		sku	-> SKU
+	}[SellerSku=$SellerSku$
+	accountId=$accountId$]
+	
+	yibai_amazon_fba_inventory{
+		fnsku -> FNSKU
+	}[SellerSku=$SellerSku$
+	accountId=$accountId$]
+}
+department_id=5:亚马逊人员
+yibai_system{
+	yibai_user{
+		department_id=5
+		id	->
+	}[saler_name=$saler_name$]
+	
+	yibai_department{
+		department_name	-> 销售组
+	}[id=$id$]
+	
+	yibai_amazon_account{
+		account_name -> 账号名称
+	}[account_id=$account_id$]
+}	
+==============================================================================================
+FBA库存表:
+yibai_product{
+	yibai_amazon_sku_map{
+		SellerSkus ->
+	}
+}
+http://docs.developer.amazonservices.com/zh_CN/fba_inventory/FBAInventory_ListInventorySupply.html{
+	InStock -> 在库库存
+	Inbound  -> 在途库存
+}[SellerSkus=$SellerSkus$
+	ResponseGroup=Basic | Detailed
+	账号来源{}=yibai_system{
+		yibai_amazon_account{
+		}
+	}
+ ]
+ResponseGroup->{
+	Basic{
+		TotalSupplyQuantity -> 在库+在途+调拨中库存
+		InStockSupplyQuantity -> 在库库存
+	}
+	Detailed{
+		SupplyType->{
+			InStock -> 在库库存
+			Inbound -> 在途库存
+			Transfer -> 调拨中库存
+		}
+	}
+}
+
+库存统计日期:当前年月日 
+yibai_product{
+	yibai_amazon_sku_map{
+		SKU ->
+	}
+}
+物流部每天导入亚马逊已签收的货物数量 - 这批货物中在亚马逊已经上架的数量 -> 待上架库存
+==============================================================================================
+FBA销量表:
+拉取亚马逊订单列表
+计算销量
+传参日期获取订单表
+http://docs.developer.amazonservices.com/zh_CN/orders/2013-09-01/Orders_ListOrders.Html{
+	订单表 ->
+}[日期=?]
+http://docs.developer.amazonservices.com/zh_CN/orders/2013-09-01/Orders_ListOrderItems.html{
+	订单详情 ->
+}[AmazonOrderId=$订单表.AmazonOrderId$]
+
+yibai_product{
+	yibai_amazon_sku_map{
+		SKU ->
+	}
+}
+计算亚马逊api{
+	产品销售数量
+}
+销售日期:自动生成
+
+==============================================================================================
+FBA采购交付周期表:
+老采购系统{
+	pur_purchase_order{
+		audit_time -> 采购单经理审核时间
+	}
+	pur_warehouse_results{
+		instock_date -> 第一次入库时间
+	}<order by instock_date asc>
+
+}
+==============================================================================================
+中转仓库存表:
+sku:?
+仓库->{
+	东莞中转仓:AFN
+	宁波中转仓:shzz
+}
+新东莞中转仓数据库:61.145.168.162:20003/yb_wms0411
+新宁波中转仓数据库：39.108.226.71:3306/yb_wms0411
+老采购系统{
+	pur_purchasing_demand{
+		purchase_quantity -> 待处理备货数量
+	}
+}
+(新东莞/新宁波)中转仓数据库{
+	ueb_transit_stock{
+		onway_qty -> 采购在途数量
+		work_qty -> 可用库存数量
+		frozen_qty -> 不良品库存
+	}
+}
+==============================================================================================
+海外仓库存表:
+备注:海外仓库存分布在5家物流商，确保在每天0点前能拉取完
+----------------------------万邑通
+新海外仓系统:47.112.16.65:3306/hwc
+新海外仓系统{
+	yb_warehouse{
+		warehouse_id ->
+		public_warehouse_code ->
+		oversea_warehouse_code ->
+	}[use_status = 1
+	& oversea_warehouse_code IN ('wyt', 'wyt_kevin')
+	& public_warehouse_code != ''](GROUP BY public_warehouse_code)
+}
+老erp仓库:39.108.85.90:3306/yibai_warehouse
+老erp仓库{
+	yibai_warehouse{
+		region -> 站点
+	}[use_status = 1
+		& warehouse_code = $public_warehouse_code$]
+}
+oversea_warehouse_code->{
+	wyt{
+		Token:B652423FE31F492F73E4EF14A2645F08
+		app_key:hufanjin@163.com
+		client_id:MMEYYTQZNJITNMZHNY00NTNLLTGZOTUTYZLLZTCXODKYNDYY
+		client_secret:NWEYYJHHNDETNDQXYI00NMZHLWE2YZGTNJHKMGY4NGZLYJHJNTI5MDK4MDAWNDA1MJU2NDQ=
+		platforms:YBERP
+	}
+	wyt_kevin{
+		token:E92BA882FD61A40B2BDE6A9AD9528F2E
+		app_key:577702015@qq.com
+		client_id:NJC0M2Y3NTGTMZYZYI00Y2IWLWE3NJATMZCZOGQWMZBHMJC1
+		client_secret:NGFHNDMWZDITNMU1YI00YTIXLTG4ZMQTY2MWYJZMZTZLYJZJMJY0MDCWNTK5ODAWNDM1ODC=
+		platforms:KEVINERP
+	}
+}
+$productCode$:JAK03265(return)
+万邑通api查询库存: https://developer.winit.com.cn/document/detail/id/58.html
+万邑通api查询库存{
+	productCode -(JAK03265(return)=>JAK03265)-> sku
+}[warehouse_id=$warehouse_id$]
+qtyAvailable:可用库存
+qtyReserved:待发库存
+qtySw:存储仓库存
+Api返回数据{
+	库存统计日期:自动生成
+	productCode -> SKU
+	qtyAvailable + qtyReserved + qtySw -> 在库库存
+	qtyOrdered -> 在途库存
+}
+请求中转仓api{
+	- 待上架库存
+}
+----------------------------谷仓
+新海外仓系统中谷仓仓库列表:47.112.16.65:3306/hwc
+hwc{
+	yb_warehouse{
+		warehouse_code ->
+		public_warehouse_code ->
+		company_code ->
+	}[use_status = 1
+	& oversea_warehouse_code IN ('gc', 'gc_kevin')
+	& public_warehouse_code != '']<GROUP BY public_warehouse_code>
+}
+老erp仓库表:39.108.85.90:3306/yibai_warehouse
+yibai_warehouse{
+	yibai_warehouse{
+		region -> 站点
+	}[use_status = 1
+	& warehouse_code = $public_warehouse_code$]
+}
+谷仓api:http://121.40.249.183/default/open/api-call 目录：单据管理及库存查询->获取库存
+G332:易佰美仓
+G679:易佰英仓
+G836:易佰捷克仓
+G677:Kevin美仓
+236:Kevin英仓
+G1088:Kevin捷克仓
+G1005:易佰澳仓
+company_code->{
+	G332{
+		appToken:594d9c2a24e95de72aa632695face710
+		appKey:fd19a638c984e06795a9a957144e3caf
+	}
+	G679{
+		appToken:65973c830a9497a4764461c71607bc35
+		appKey:1ca5693d6626953c0917fc01be137fc1
+	}
+	G836{
+		appToken:0f39097c77724d79acbe9f53041f4abd
+		appKey:2c23ac9a809dfeff67bc4dbe01c8e2f9	
+	}
+	G677{
+		appToken:18ad9785c3902e62e8ea5f55470e412a
+		appKey:f1c3f6be5e7dc3256880a44d5655bed5	
+	}
+	236{
+		appToken:1cdf38aef51e64bc871e7db6136a58ff
+		appKey:eb5532c9b54de426b58e5efd0c4fad0a
+	}
+	G1088{
+		appToken:8b87a17240abcff380e8770e9e7b367f
+		appKey:6437f1d13acced9629540815ce4b6983
+	}
+	G1005{
+		appToken:63d4704af1e63bc1c579f2809bba7c66
+		appKey:e1ddcf9c31a3de9f87d35c44187b1ed2
+	}
+}
+库存统计日期:自动生成
+sellable:可用库存
+reserved:待发库存
+Api返回数据{
+	product_sku -> SKU
+	sellable+reserved -> 在库库存
+	onway-> 在途库存
+	
+	
+}
+请求中转仓api{
+	- 待上架库存
+}
+----------------------------出口易
+新海外仓系统中万邑通仓库列表:47.112.16.65:3306/hwc
+hwc{
+	yb_warehouse{
+		warehouse_code	->
+		public_warehouse_code ->
+		oversea_warehouse_code ->
+	}[use_status = 1
+	& oversea_warehouse_code IN ('cky', 'cky_kevin')
+	& public_warehouse_code != '']<GROUP BY public_warehouse_code>
+}
+老erp仓库表:39.108.85.90:3306/yibai_warehouse
+yibai_warehouse{
+	yibai_warehouse{
+		egion -> 站点
+	}[use_status = 1
+	& warehouse_code = public_warehouse_code]
+}
+出口易api查询sku:https://openapi-release.chukou1.cn/v1/Help/Api/GET-v1-storageSkus_WarehouseId_PageIndex_PageSize_Sorting
+出口易api查询sku{
+	sku ->
+}[warehouse_code=$warehouse_code$]
+sku去出口易api查询库存:https://openapi-release.chukou1.cn/v1/Help/Api/GET-v1-inventories_Skus_WarehouseId
+api账号->{
+	$oversea_warehouse_code${
+		cky{
+			client_id:ODYxYjhjYWUtYjEwZC00ZmUwLWE2MjUtZGRiZmUzM2ZhYWQx
+			client_secret:OGM0MDE3NTYtZTVlYS00MmE1LWE3Y2MtOTA1YzE5MmRmYjY5LTNjNDBhODM5LWM2OTQtNDlkYS04YmNmLWFlYzE3YzY5OTFiYg==
+			账号:ebayst_2011@163.com
+		}
+		cky_kevin{
+			client_id:ODYxYjhjYWUtYjEwZC00ZmUwLWE2MjUtZGRiZmUzM2ZhYWQx
+			client_secret:OGM0MDE3NTYtZTVlYS00MmE1LWE3Y2MtOTA1YzE5MmRmYjY5LTNjNDBhODM5LWM2OTQtNDlkYS04YmNmLWFlYzE3YzY5OTFiYg==
+			platforms:caiwiliuz123@163.com
+		}
+	}
+}
+sku去出口易api查询库存{
+	Sku -(JAK03265-CR->JAK03265)->sku
+	TotalStockQty:在库库存
+	
+}
+库存统计日期:自动生成
+请求中转仓api{
+	- 在途库存
+	- 待上架库存
+}
+----------------------------递四方
+新海外仓系统中万邑通仓库列表: 47.112.16.65:3306/hwc
+hwc{
+	yb_warehouse{
+		warehouse_code ->
+		public_warehouse_code ->
+	}[use_status = 1
+	& oversea_warehouse_code = ‘4px’
+	& public_warehouse_code != '']<GROUP BY public_warehouse_code>
+}
+老erp仓库表:39.108.85.90:3306/yibai_warehouse
+yibai_warehouse{
+	region -> 站点
+}[use_status = 1
+	& warehouse_code = $public_warehouse_code$]
+递四方api查询库存:4PX Fulfillment API Tech-Spec.pdf之12. GetInventory(查询库存)
+递四方api查询库存{
+	sku
+	actualQuantity
+	pendingQuantity
+}
+库存统计日期: 自动生成
+请求中转仓api{
+	- 待上架库存
+}
+----------------------------旺集
+新海外仓系统中万邑通仓库列表:47.112.16.65:3306/hwc
+hwc{
+	yb_warehouse{
+		warehouse_code -> 
+		public_warehouse_code ->
+	}[use_status = 1
+		& oversea_warehouse_code = ‘wj’
+		& public_warehouse_code != '']<GROUP BY public_warehouse_code>
+}
+老erp仓库表:39.108.85.90:3306/yibai_warehouse
+yibai_warehouse{
+	region -> 站点
+}[use_status = 1
+	& warehouse_code = $public_warehouse_code$]
+旺集api查询库存接口文档:旺集科技海外仓系统API文档.docx之4.4.3查询所有库存
+库存统计日期:自动生成
+旺集api查询库存{
+	itemCode -> SKU
+	inventoryQuantity -> 在库库存
+	onWayLocationQuantity -> 在途库存
+}
+请求中转仓api{
+	- 待上架库存
+}
+==============================================================================================
+海外仓销量表:
+备注: 海外仓无销量接口，需拉取海外仓订单列表，自行计算销量
+----------------------------万邑通
+----------------------------谷仓
+获取谷仓出库数据接口文档:http://121.40.249.183/default/open/api-call 目录：订单管理->获取订单列表
+warehouse_code:发货仓库
+product_sku:sku
+quantity:sku数量
+获取谷仓出库数据接口{
+	warehouse_code ->
+	product_sku ->
+	quantity ->
+}[date_shipping_from=发货时间开始
+	& date_shipping_to=发货时间结束]
+新海外仓系统中仓库表: 47.112.16.65:3306/hwc
+hwc{
+	yb_warehouse{
+		public_warehouse_code ->
+	}[oversea_warehouse_code LIKE ‘gc%’
+		& warehouse_code = warehouse_code]
+}
+老erp仓库表:39.108.85.90:3306/yibai_warehouse
+yibai_warehouse{
+	yibai_warehouse{
+		region -> 站点
+	}[use_status = 1
+	& warehouse_code = $public_warehouse_code$]
+----------------------------出口易
+Ck1PackageId:出口易订单号
+获取出口易订单号接口文档: https://openapi-release.chukou1.cn/v1/Help/Api/GET-v1-outboundOrders_FromDate_ToDate_PageSize_PageIndex_TypeOfSearchDate_HandleStatus
+获取出口易订单号接口{
+	Ck1PackageId ->
+}[FromDate=发货时间开始
+	& ToDate=发货时间结束]
+PackageId:卖家订单号
+获取卖家订单号接口文档:https://openapi-release.chukou1.cn/v1/Help/Api/POST-v1-outboundOrders-idTyPe
+获取卖家订单号接口{
+	PackageId
+}[idType=Ck1PackageId
+	& Ids=$Ck1PackageId$]
+新海外仓系统中出口易订单表:47.112.16.65:3306/hwc
+hwc{
+	yb_order_cky_push_data{
+		warehouse_code
+		detail
+	}[order_id=PackageId]
+}
+老erp仓库表:39.108.85.90:3306/yibai_warehouse
+yibai_warehouse{
+	yibai_warehouse{
+		region -> 站点
+	}[use_status = 1
+	& warehouse_code = $warehouse_code$]
+每日销量:sku出库数量汇总
+----------------------------递四方
+warehouseCode:发货仓库
+quantity:sku数量
+获取递四方出库数据接口文档: 4PX Fulfillment API Tech-Spec.pdf 目录：19. GetDeliveryOrderList(查询批量订单)
+获取递四方出库数据接口{
+	warehouseCode ->
+	sku ->
+	quantity
+}[shipmentDateBegin=发货时间开始
+	& shipmentDateEnd=发货时间结束
+	& orderStatusCode=S(已发货--仓库已经发货)]
+新海外仓系统中仓库表:47.112.16.65:3306/hwc
+hwc{
+	yb_warehouse{
+		public_warehouse_code ->
+	}[oversea_warehouse_code=4PX
+		& warehouse_code=warehouseCode]
+}
+老erp仓库表:39.108.85.90:3306/yibai_warehouse
+yibai_warehouse{
+	yibai_warehouse{
+		region -> 站点
+	}[use_status = 1
+	& warehouse_code = $warehouse_code$]
+每日销量:sku出库数量汇总
+----------------------------旺集
+新海外仓系统中旺集发货表:47.112.16.65:3306/hwc
+hwc{
+	yb_order_package:p + yb_order_package_detail:pd {
+		warehouse_code ->
+	}[p.order_id = pd.order_id
+		& p.warehouse_code LIKE 'wj%'
+		& p.shipped_date > '2019-03-09'
+		& p.shipped_date < '2019-03-10'
+	]
+}
+新海外仓系统中仓库表: 47.112.16.65:3306/hwc
+hwc{
+	yb_warehouse{
+		public_warehouse_code
+	}[oversea_warehouse_code = ‘wj’
+		& warehouse_code = warehouse_code]
+}
+老erp仓库表:39.108.85.90:3306/yibai_warehouse
+yibai_warehouse{
+	yibai_warehouse{
+		region -> 站点
+	}[use_status = 1
+	& warehouse_code = $warehouse_code$]
+每日销量:sku出库数量汇总
+==============================================================================================
+海外仓采购交付周期表:
+备注: 每天采购系统会生成采购单入库数据，计划系统可在24点去采购系统取出这些数据，包括：采购单经理审核时间、第一次入库时间
+audit_time: 采购单经理审核时间
+instock_date: 第一次入库时间
+老采购系统{
+	pur_purchase_order{
+		audit_time ->
+	}
+	pur_warehouse_results{
+		instock_date ->
+	}<order by instock_date asc>
+
+}
+
+
+
+YibaiAmazonSkuMapMapper
+
+
+
+
+
+
+
+
+

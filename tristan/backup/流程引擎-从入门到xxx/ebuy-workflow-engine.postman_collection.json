@@ -1,0 +1,2209 @@
+{
+	"info": {
+		"_postman_id": "813162de-ca2e-bb28-c90c-e3600cf37dc4",
+		"name": "ebuy-workflow-engine",
+		"description": "易佰-流程引擎",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户",
+			"item": [
+				{
+					"name": "查询用户",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46dGVzdA=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"users"
+							]
+						},
+						"description": "查询用户"
+					},
+					"response": []
+				},
+				{
+					"name": "增加用户",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c517b146-7032-4f67-805d-aceca1ab3c2d",
+								"exec": [
+									"pm.environment.set(\"userId\", \"artist1Member\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{userId}}\",\n    \"firstName\": \"{{userId}}\",\n    \"lastName\": \"{{userId}}\",\n    \"displayName\": \"{{userId}}\",\n    \"url\": \"http://localhost:8086/flowable-rest/service/identity/users/createProducter\",\n    \"email\": \"{{userId}}@qq.com\",\n    \"pictureUrl\": null,\n    \"password\": \"{{userId}}\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"users"
+							]
+						},
+						"description": "增加用户"
+					},
+					"response": []
+				},
+				{
+					"name": "修改用户",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\":\"testfsfs\"\n\t,\"lastName\":\"test31321\"\n\t,\"displayName\":\"test1\"\n\t,\"email\":\"test1@qq\"\n\t,\"password\":\"test\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/users/test1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"users",
+								"test1"
+							]
+						},
+						"description": "修改用户"
+					},
+					"response": []
+				},
+				{
+					"name": "删除用户",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/users/createProducter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"users",
+								"createProducter"
+							]
+						},
+						"description": "删除用户"
+					},
+					"response": []
+				},
+				{
+					"name": "基于id的查询用户",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "批量增加用户",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户组相关",
+			"item": [
+				{
+					"name": "查询用户组",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/groups/test1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"groups",
+								"test1"
+							]
+						},
+						"description": "查询用户组"
+					},
+					"response": []
+				},
+				{
+					"name": "增加用户组",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"test1\"\n\t,\"name\":\"test1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/groups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"groups"
+							]
+						},
+						"description": "增加用户组"
+					},
+					"response": []
+				},
+				{
+					"name": "删除用户组",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/groups/test1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"groups",
+								"test1"
+							]
+						},
+						"description": "删除用户组"
+					},
+					"response": []
+				},
+				{
+					"name": "为组添加组员",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\":\"test1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/groups/test1/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"groups",
+								"test1",
+								"members"
+							]
+						},
+						"description": "为组添加组员"
+					},
+					"response": []
+				},
+				{
+					"name": "为组删除组员",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/identity/groups/test1/members/test1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"identity",
+								"groups",
+								"test1",
+								"members",
+								"test1"
+							]
+						},
+						"description": "为组删除组员"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "部署对象",
+			"item": [
+				{
+					"name": "查询所有部署对象",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":\"\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/deployments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"deployments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询具体部署对象",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/deployments/c8237785-3f7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"deployments",
+								"c8237785-3f7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户上传部署对象",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/deployments?deploymentKey=test&deploymentName=测试&tenantId=test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"deployments"
+							],
+							"query": [
+								{
+									"key": "deploymentKey",
+									"value": "test"
+								},
+								{
+									"key": "deploymentName",
+									"value": "测试"
+								},
+								{
+									"key": "tenantId",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除部署对象",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/deployments/a6c851ca-3beb-11e9-8870-7845c42f05a4?cascade=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"deployments",
+								"a6c851ca-3beb-11e9-8870-7845c42f05a4"
+							],
+							"query": [
+								{
+									"key": "cascade",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "流程定义",
+			"item": [
+				{
+					"name": "查询所有流程定义",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions?",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"process-definitions"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "test_model1",
+									"disabled": true
+								},
+								{
+									"key": "nameLike",
+									"value": "%test_model%",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "test_model1",
+									"disabled": true
+								},
+								{
+									"key": "keyLike",
+									"value": "%test_model1%",
+									"disabled": true
+								},
+								{
+									"key": "resourceName",
+									"value": "test_model1.bpmn20.xml",
+									"disabled": true
+								},
+								{
+									"key": "resourceNameLike",
+									"value": "%test_model1.bpmn20%",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "http://www.flowable.org/processdef",
+									"disabled": true
+								},
+								{
+									"key": "categoryLike",
+									"value": "%processdef%",
+									"disabled": true
+								},
+								{
+									"key": "categoryNotEquals",
+									"value": "processdef",
+									"disabled": true
+								},
+								{
+									"key": "deploymentId",
+									"value": "c8237785-3bce-11e9-8870-7845c42f05a4",
+									"disabled": true
+								},
+								{
+									"key": "latest",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "suspended",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询对应指定部署对象的流程定义(最新)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions?deploymentId=c8237785-3bce-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"process-definitions"
+							],
+							"query": [
+								{
+									"key": "deploymentId",
+									"value": "c8237785-3bce-11e9-8870-7845c42f05a4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询具体流程定义对象",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions/test_model1:1:c84a1258-3bce-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"process-definitions",
+								"test_model1:1:c84a1258-3bce-11e9-8870-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看该流程定义的部署对象",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions/test_model1:1:c84a1258-3bce-11e9-8870-7845c42f05a4?deploymentId=c8237785-3bce-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"process-definitions",
+								"test_model1:1:c84a1258-3bce-11e9-8870-7845c42f05a4"
+							],
+							"query": [
+								{
+									"key": "deploymentId",
+									"value": "c8237785-3bce-11e9-8870-7845c42f05a4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改指定流程定义的信息",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"action\": \"activate\"\r\n  ,\"category\":\"category\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions/test_model1:1:682ee575-3bf9-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"process-definitions",
+								"test_model1:1:682ee575-3bf9-11e9-8870-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "流程实例",
+			"item": [
+				{
+					"name": "启动流程实例",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"message\": \"test_model1\",\r\n  \"name\": \"test_model1\",\r\n  \"businessKey\": \"test_model1\",\r\n  \"variables\": [\r\n    {\r\n      \"name\": \"myVariable\",\r\n      \"type\": \"string\",\r\n      \"value\": \"test\",\r\n      \"valueUrl\": \"http://....\",\r\n      \"scope\": \"local\"\r\n    }\r\n  ],\r\n  \"transientVariables\": [\r\n    {\r\n      \"name\": \"myVariable\",\r\n      \"type\": \"string\",\r\n      \"value\": \"test\",\r\n      \"valueUrl\": \"http://....\",\r\n      \"scope\": \"local\"\r\n    }\r\n  ],\r\n  \"startFormVariables\": [\r\n    {\r\n      \"name\": \"myVariable\",\r\n      \"type\": \"string\",\r\n      \"value\": \"test\",\r\n      \"valueUrl\": \"http://....\",\r\n      \"scope\": \"local\"\r\n    }\r\n  ],\r\n  \"outcome\": \"accepted\",\r\n  \"overrideDefinitionTenantId\": \"overrideTenant1\",\r\n  \"returnVariables\": true\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks?assignee=test1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "assignee",
+									"value": "test1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询流程实例列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances?",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "380fce91-3bff-11e9-9956-7845c42f05a4",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "test_model1",
+									"disabled": true
+								},
+								{
+									"key": "nameLike",
+									"value": "%test_model1%",
+									"disabled": true
+								},
+								{
+									"key": "nameLikeIgnoreCase",
+									"value": "%test_model1%",
+									"disabled": true
+								},
+								{
+									"key": "processDefinitionKey",
+									"value": "test_model1",
+									"disabled": true
+								},
+								{
+									"key": "processDefinitionId",
+									"value": "test_model1:1:682ee575-3bf9-11e9-8870-7845c42f05a4",
+									"disabled": true
+								},
+								{
+									"key": "processDefinitionCategory",
+									"value": "category",
+									"disabled": true
+								},
+								{
+									"key": "processDefinitionVersion",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "businessKey",
+									"value": "test_model1",
+									"disabled": true
+								},
+								{
+									"key": "startedBy",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "startedBefore",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "startedAfter",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "involvedUser",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "suspended",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "superProcessInstanceId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询流程实例具体信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances/881b2d91-4555-11e9-98f8-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances",
+								"881b2d91-4555-11e9-98f8-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看流程实例的流程图",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances/380fce91-3bff-11e9-9956-7845c42f05a4/diagram",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances",
+								"380fce91-3bff-11e9-9956-7845c42f05a4",
+								"diagram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "改变指定流程实例当前活动的节点",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cancelActivityIds\": [\r\n    \"b\"\r\n  ],\r\n  \"startActivityIds\": [\r\n    \"a\"\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances/93aea35e-3c1b-11e9-8870-7845c42f05a4/change-state",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances",
+								"93aea35e-3c1b-11e9-8870-7845c42f05a4",
+								"change-state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除指定流程实例",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"deleteReason\":\"test\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances/{{process-id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances",
+								"{{process-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改流程任务信息",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"assignee\":\"test2\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks/98665079-3c21-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks",
+								"98665079-3c21-11e9-8870-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "流程任务",
+			"item": [
+				{
+					"name": "认领流程任务(签收)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasksa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasksa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看流程任务的子任务",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"parentTaskId\":\"7c8726e3-3c21-11e9-8870-7845c42f05a4\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasksa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasksa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看所在流程实例",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances/f597e03c-3c1d-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances",
+								"f597e03c-3c1d-11e9-8870-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询我的流程任务列表",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "96d5280e-14c5-47ba-a24f-6cf7f86019b1",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"assignee\":\"test1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询流程任务详细",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks/04143838-3c1e-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks",
+								"04143838-3c1e-11e9-8870-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看所在流程任务的变量",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks/04143838-3c1e-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks",
+								"04143838-3c1e-11e9-8870-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看流程任务所在流程定义",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions/test_model1:1:8fa9bced-3c1b-11e9-8870-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"process-definitions",
+								"test_model1:1:8fa9bced-3c1b-11e9-8870-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询流程任务列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "实际测试",
+			"item": [
+				{
+					"name": "4.0、查询该流程有哪些节点可以进行驳回和返回的操作",
+					"item": [
+						{
+							"name": "根据业务key去查询流程",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions?key=test_rollback",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"flowable-rest",
+										"service",
+										"repository",
+										"process-definitions"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "test_rollback"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据流程id查询流程模型值",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions/test_rollback:1:9db2b816-3f11-11e9-b3e6-7845c42f05a4/model",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"flowable-rest",
+										"service",
+										"repository",
+										"process-definitions",
+										"test_rollback:1:9db2b816-3f11-11e9-b3e6-7845c42f05a4",
+										"model"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "1、启动流程模板",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "deploymentKey",
+									"value": "generalProductModel",
+									"type": "text"
+								},
+								{
+									"key": "deploymentName",
+									"value": "常规商品生产模型",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/deployments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"deployments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2、启动流程实例",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"processDefinitionKey\":\"test_rollback\",\n\t\"businessKey\":\"test_rollback\",\n\t\"name\":\"测试返回\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询指定sku的流程实例",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances?businessKey=conventionalCommodityProduction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances"
+							],
+							"query": [
+								{
+									"key": "businessKey",
+									"value": "conventionalCommodityProduction"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看流程模板的数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions/1e99de50-3e40-11e9-8975-7845c42f05a4/model",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"process-definitions",
+								"1e99de50-3e40-11e9-8975-7845c42f05a4",
+								"model"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询流程的运行情况",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances/1fc74551-3e41-11e9-8975-7845c42f05a4/diagram",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances",
+								"1fc74551-3e41-11e9-8975-7845c42f05a4",
+								"diagram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.2、查询我的任务节点",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks?assignee=helloIsMe&active=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "assignee",
+									"value": "helloIsMe"
+								},
+								{
+									"key": "active",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.3、提交我的任务节点",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"action\":\"complete\",\r\n\t\"variables\":[{\r\n\t\t\"dever\":\"tristan\"\r\n\t}]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks/1fcc0046-3e41-11e9-8975-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks",
+								"1fcc0046-3e41-11e9-8975-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4、驳回流程到指定节点",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"cancelActivityIds\":[\"qa\"],\n\t\"startActivityIds\":[\"dev\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances/1fc74551-3e41-11e9-8975-7845c42f05a4/change-state",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances",
+								"1fc74551-3e41-11e9-8975-7845c42f05a4",
+								"change-state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.1、设置任务的处理人",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"assignee\":\"helloIsMe\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/tasks/6895bde1-3e45-11e9-8975-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"tasks",
+								"6895bde1-3e45-11e9-8975-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询历史任务",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/history/historic-task-instances?processBusinessKey=test_rollback&sort=endTime",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"history",
+								"historic-task-instances"
+							],
+							"query": [
+								{
+									"key": "processBusinessKey",
+									"value": "test_rollback"
+								},
+								{
+									"key": "sort",
+									"value": "endTime"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "实际测试-v2",
+			"item": [
+				{
+					"name": "查看节点和操作",
+					"item": [
+						{
+							"name": "根据业务key去查询流程",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions?key=generalProductModel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"flowable-rest",
+										"service",
+										"repository",
+										"process-definitions"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "generalProductModel"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据流程id查询流程模型值",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8086/flowable-rest/service/repository/process-definitions/generalProductModel:1:3cc0c24b-44d1-11e9-96df-7845c42f05a4/model",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"flowable-rest",
+										"service",
+										"repository",
+										"process-definitions",
+										"generalProductModel:1:3cc0c24b-44d1-11e9-96df-7845c42f05a4",
+										"model"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "部署模板",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "deploymentKey",
+									"value": "generalProductModel",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "deploymentName",
+									"value": "常规商品生产模型",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/repository/deployments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"repository",
+								"deployments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "启动流程",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"processDefinitionKey\":\"generalProductModel\",\n\t\"variables\":[\n\t\t{\"scope\": \"global\",\"type\": \"string\",\"name\":\"dev_assign\",\"value\":\"dev1\"},\n\t\t{\"scope\": \"global\",\"type\": \"string\",\"name\":\"qa_assign\",\"value\":\"qa1\"},\n\t\t{\"scope\": \"global\",\"type\": \"string\",\"name\":\"doc_assign\",\"value\":\"doc1\"},\n\t\t{\"scope\": \"global\",\"type\": \"string\",\"name\":\"photo_assign\",\"value\":\"photo1\"},\n\t\t{\"scope\": \"global\",\"type\": \"string\",\"name\":\"pic1_assign\",\"value\":\"pic11\"},\n\t\t{\"scope\": \"global\",\"type\": \"string\",\"name\":\"pic2_assign\",\"value\":\"pic21\"}\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service/runtime/process-instances",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service",
+								"runtime",
+								"process-instances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看节点和操作",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "批量操作节点",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n\t{\r\n\t\t\"businessKey\":\"spu-test1\",\r\n\t\t\"userId\":\"tristan\",\r\n\t\t\"action\":\"complete||reject\",\r\n\t\t\"completeNodeIds\":[\"\"],\r\n\t\t\"rejectNodeIds\":[\"\"]\r\n\t}\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/customService/processActionBatch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"customService",
+								"processActionBatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "完结流程",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service-extra/processInstanceComplete/{{process-id}}/photo1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service-extra",
+								"processInstanceComplete",
+								"{{process-id}}",
+								"photo1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改流程的全局变量",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\"name\":\"main_executable_value\",\n\t\"value\":[{\"is_to_dev\":\"1\"},{\"is_to_qa\":\"1\"},{\"is_to_gateway\":\"1\"},{\"is_to_doc\":\"0\"},{\"is_to_photo\":\"0\"},{\"is_to_pic1\":\"1\"},{\"is_to_pic2\":\"1\"},{\"is_to_end\":\"0\"}]\n\t}\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service-extra/processInstanceVariables/{{process-id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service-extra",
+								"processInstanceVariables",
+								"{{process-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看该流程所有可操作的节点、查看当前执行者、上级执行者、下级执行者、历史执行者",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service-extra/processOperateNodes/{{process-id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service-extra",
+								"processOperateNodes",
+								"{{process-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "批量为节点设置执行者",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\"id\":\"dev\",\"assign\":\"dev1\"},\n\t{\"id\":\"qa\",\"assign\":\"qa1\"},\n\t{\"id\":\"doc\",\"assign\":\"doc1\"},\n\t{\"id\":\"photo\",\"assign\":\"photo1\"},\n\t{\"id\":\"pic\",\"assign\":\"pic1\"},\n\t{\"id\":\"pic\",\"assign\":\"pic2\"}\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service-extra/processOperateNodes/6db299d4-46ef-11e9-85c9-7845c42f05a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service-extra",
+								"processOperateNodes",
+								"6db299d4-46ef-11e9-85c9-7845c42f05a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改任务节点的代理人",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"dev\",\n\t\"assign\":\"dev2\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8086/flowable-rest/service-extra/processOperateNode/{{process-id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"flowable-rest",
+								"service-extra",
+								"processOperateNode",
+								"{{process-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

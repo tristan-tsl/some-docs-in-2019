@@ -1,0 +1,10 @@
+fdisk -l
+parted -s -a optimal /dev/vda mklabel gpt -- mkpart primary ext4 1 -1
+yes|mkfs.ext4 /dev/vda
+mkdir -p /data/
+sudo cat >> /etc/fstab<<EOF
+/dev/vda /data/ ext4 defaults,nodelalloc,noatime 0 2
+EOF
+mount -a
+mount -t ext4
+df -h /data/

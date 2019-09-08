@@ -1,0 +1,27 @@
+Git 全局设置
+git config --global user.name "tristan"
+git config --global user.password "gitlabTristan"
+git config --global user.email "3301015948@qq.com"
+
+创建一个新存储库
+git clone http://192.168.71.220/ebuy-cloud-dev/ebuy-cloud-config.git
+cd ebuy-cloud-config
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+
+现有的文件夹
+cd existing_folder
+git init
+git remote add origin http://192.168.71.220/root/ebuycloud-deploy.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+现有的Git存储库
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin http://192.168.71.220/root/ebuycloud-deploy.git
+git push -u origin --all
+git push -u origin --tags

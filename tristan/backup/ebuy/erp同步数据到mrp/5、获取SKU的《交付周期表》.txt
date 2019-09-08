@@ -1,0 +1,37 @@
+192.168.71.137:3306 
+javauser
+Yb2019***
+
+YibaiEbuyFbaDeliverySchedule
+
+pur_purchase_order{
+	audit_time -> 采购单经理审核时间
+}
+
+pur_warehouse_results{
+	instock_date -> 第一次入库时间
+}[order by instock_date asc]
+
+
+service-procurement-old
+
+
+procurement_old
+ProcurementOld
+
+
+ebuy.cloud.eureka.server=localhost
+ebuy.cloud.eureka.port=9000
+# 数据库配置
+ebuy.procurement_old.host=192.168.71.137
+ebuy.procurement_old.port=3306
+ebuy.procurement_old.database=
+ebuy.procurement_old.username=javauser
+ebuy.procurement_old.password=Yb2019***
+
+
+YibaiEbuyFbaProcurementOldMapper
+
+yibai_ebuy_fba_procurement_old
+
+procurementOld2mrpJobHandler

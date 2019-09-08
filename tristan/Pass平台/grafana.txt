@@ -1,0 +1,37 @@
+docker pull grafana/grafana
+
+mkdir -p /data/tristan/grafana/configs
+
+docker stop grafana
+docker rm   grafana
+
+
+
+
+mkdir -p /data/tristan/grafana/data
+chmod 777 /data/tristan/grafana/data
+docker run -d --name=grafana -p 3000:3000 -v /data/tristan/grafana/data:/var/lib/grafana -v /data/tristan/grafana/configs/grafana.ini:/etc/grafana/grafana.ini --restart=always grafana/grafana
+
+docker cp grafana:/etc/grafana/grafana.ini /data/tristan/grafana/configs/grafana.ini
+
+# 修改配置文件
+allow_embedding = true
+[auth.anonymous]
+enabled = true
+org_name = Main Org.
+org_role = Viewer
+
+node_exporter:
+	1860
+	8919
+	
+mysql_exporter:
+	6239
+	7362
+	
+oracle_exporter:
+	3333
+	
+<iframe src="http://192.168.71.96:3000/d/Ua27t1FZz/node-exporter-full?orgId=1" style="width: 100vw;height: 100vh"
+        frameborder="0" scrolling="auto"></iframe>
+		

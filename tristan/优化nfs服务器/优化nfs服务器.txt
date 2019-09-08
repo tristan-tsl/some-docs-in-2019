@@ -1,0 +1,27 @@
+手动释放内存:
+echo 1 > /proc/sys/vm/drop_caches
+echo 2 > /proc/sys/vm/drop_caches
+echo 3 > /proc/sys/vm/drop_caches
+
+
+禁止缓存(buffer/cache):
+vi /etc/sysctl.conf
+ 
+vm.dirty_ratio = 1
+vm.dirty_background_ratio=1
+vm.dirty_writeback_centisecs=2
+vm.dirty_expire_centisecs=3
+vm.drop_caches=3
+vm.swappiness =100
+vm.vfs_cache_pressure=163
+vm.overcommit_memory=2
+vm.lowmem_reserve_ratio=32 32 8
+kern.maxvnodes=3
+
+
+
+降低内存碎片的检查:
+echo 1 > /proc/sys/vm/drop_caches
+echo 1 > /proc/sys/vm/compact_memory
+
+ps H -eo user,pid,ppid,tid,time,%mem,cmd --sort=%mem

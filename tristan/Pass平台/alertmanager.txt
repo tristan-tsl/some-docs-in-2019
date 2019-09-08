@@ -1,0 +1,61 @@
+https://prometheus.io/download/
+
+https://github.com/prometheus/alertmanager/releases/download/v0.19.0-rc.0/alertmanager-0.19.0-rc.0.linux-amd64.tar.gz
+
+wget https://github.com/prometheus/alertmanager/releases/download/v0.19.0-rc.0/alertmanager-0.19.0-rc.0.linux-amd64.tar.gz
+
+
+/data/tristan/devops_platform/alertmanager
+
+mkdir -p /data/tristan/devops_platform/alertmanager && cd /data/tristan/devops_platform/alertmanager
+
+tar -zvxf 
+
+vi alertmanager.yml
+
+receivers:
+- name: 'web.hook'
+  webhook_configs:
+  - url: 'http://yibainetwork.natapp1.cc/monitoring/open_monitoring/webhook'
+
+nohup ./alertmanager &
+
+ps aux|grep alertmanager
+
+http://localhost:9093
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['192.168.71.96:9093']
+
+- name: 'web.hook'
+
+
+
+模拟触发告警: https://learnku.com/articles/22744?order_by=created_at& 
+
+cat /dev/zero>/dev/null
+
+
+- alert: HighCpuLoad
+  expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+  for: 5m
+  labels:
+    severity: warning
+  annotations:
+    summary: "High CPU load (instance {{ $labels.instance }})"
+    description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+	
+测试模拟
+cpu:
+	cat /dev/zero > /dev/null
+	
+内存:
+	yum install -y epel-release
+	yum install -y stress
+
+	stress --vm 2 --vm-bytes 1900M --timeout 100s
+	
+	
+https://awesome-prometheus-alerts.grep.to/rules.html

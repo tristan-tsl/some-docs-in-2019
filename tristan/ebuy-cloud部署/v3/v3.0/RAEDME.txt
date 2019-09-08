@@ -1,0 +1,12 @@
+第二个版本主要做了什么?
+	优化项目实现可配置式
+	基于gitlab中实现开发、测试、生产环境的切换、隔离和权限控制
+	jenkins构建项目打包镜像并推送到阿里云的docker镜像仓库同时触发docker service的重新拉取镜像并运行,单独开放只读用户给测试人员
+	基于docker swarm集群创建overlay网络、registry、docker service,注入参数到容器、挂载数据卷、开放全局端口、任意服务的高可用和高拓展已经容器的性能监控
+	基于elk+syslog+zipkin server实现分布式调用链及日志的聚合分析
+	
+在第三个部署版本中:
+我会着重解决几个问题:
+	使用k8s替换docker swarm
+	使用fannel替换overlay
+	弱化spring cloud

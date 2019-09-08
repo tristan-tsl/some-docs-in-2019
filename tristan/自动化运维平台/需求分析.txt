@@ -1,0 +1,22 @@
+---
+v1.0:
+动作:
+	部署
+		java
+		php端
+		nodejs端
+
+	自动执行指令
+		sql和sql审核和基于sql的自动审核
+		
+目标:
+	服务器管理
+	数据库连接管理
+	人员
+
+内聚:
+	读/写gitlab
+	
+	
+	
+http://192.168.71.221:4002/login/login/singlelogin

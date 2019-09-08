@@ -1,0 +1,55 @@
+已经打包:
+	rest
+	admin
+	idm
+	edge
+	task
+	modeler
+
+端口管理:
+	rest:8086
+	
+	idm:8080
+	admin:9988 -> 9987
+	task:9999
+	model:8888
+	
+	edge:8090
+	
+
+修改打包结果
+	jar
+
+配置构建依赖
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.flowable.ui.admin.application.FlowableAdminApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+	
+打包
+	mvn install
+	mvn -DskipTests package
+	
+	
+部署
+nohup java -jar flowable-app-rest-1.0-SNAPSHOT.jar >rest.log &
+
+nohup java -jar flowable-ui-idm-app-1.0-SNAPSHOT.jar >idm.log &
+nohup java -jar flowable-ui-edge-1.0-SNAPSHOT.jar >edge.log &
+nohup java -jar flowable-ui-admin-app-1.0-SNAPSHOT.jar >admin.log &
+nohup java -jar flowable-ui-modeler-app-1.0-SNAPSHOT.jar >modeler.log &
+nohup java -jar flowable-ui-task-app-1.0-SNAPSHOT.jar >task.log &
+
+

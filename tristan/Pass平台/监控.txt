@@ -1,0 +1,75 @@
+﻿/data/tristan
+
+wget https://github.com/prometheus/prometheus/releases/download/v2.12.0/prometheus-2.12.0.linux-amd64.tar.gz
+
+docker pull prom/prometheus:v2.12.0
+
+mkdir -p /data/tristan/prometheus/configs/ && cd /data/tristan/prometheus/configs/
+mv prometheus.yml /data/tristan/prometheus/configs/prometheus.yml
+
+
+docker stop prometheus
+docker rm   prometheus
+
+
+docker run \
+    --name prometheus \
+    --restart=always \
+    -v /data/tristan/prometheus/configs/prometheus.yml:/etc/prometheus/prometheus.yml \
+    -v /data/tristan/prometheus/configs/rule_files:/etc/prometheus/rule_files \
+    -v /etc/localtime:/etc/localtime:ro \
+    -p 9090:9090 \
+    -d \
+    prom/prometheus:v2.12.0
+
+docker logs -f prometheus
+docker stats prometheus
+
+
+
+prometheus 指标对应的含义
+
+ps aux|grep mysql_exporter
+
+
+export "DATA_SOURCE_NAME=exporter:exporter@(localhost:3306)/" && /data/tristan/devops_platform/prometheus/mysql_exporter/mysqld_exporter-0.12.1.linux-amd64/mysqld_exporter
+
+export "DATA_SOURCE_NAME=root:tristan123@(localhost:3306)/" && /data/tristan/devops_platform/prometheus/mysql_exporter/mysqld_exporter-0.12.1.linux-amd64/mysqld_exporter
+
+mysql -h 192.168.71.96 -u exporter -p -P 3306
+
+
+
+CREATE USER 'exporter'@'192.168.71.96' IDENTIFIED BY 'exporter';
+
+
+drop user exporter@'192.168.71.96';
+
+export "DATA_SOURCE_NAME=exporter:exporter@(192.168.71.96:3306)/" && /data/tristan/devops_platform/prometheus/mysql_exporter/mysqld_exporter-0.12.1.linux-amd64/mysqld_exporter
+
+
+文档:
+	https://yunlzheng.gitbook.io/prometheus-book/
+	
+	
+exporter:
+	https://prometheus.io/docs/instrumenting/exporters/
+
+# 添加告警规则
+mkdir -p rule_files && cd rule_files
+
+rule_files:
+- /data/tristan/prometheus/configs/rule_files/*.rules
+
+mv xxx /data/tristan/prometheus/configs/rule_files/xxx
+
+mv -f hostStatsAlert.rules /data/tristan/prometheus/configs/rule_files/hostStatsAlert.rules
+
+
+
+oracle:
+	sqlplus user/passwd@IP:端口/实例名
+	
+	export DATA_SOURCE_NAME=exporter/exporter@localhost:27914 && /path/to/binary -l log.level error -l web.listen-address 9161
+	
+https://awesome-prometheus-alerts.grep.to/rules.html
