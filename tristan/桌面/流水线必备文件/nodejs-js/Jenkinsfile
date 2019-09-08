@@ -1,0 +1,32 @@
+pipeline {
+    agent none
+    stages {
+        stage('BuildCode') {
+            agent {
+                docker {
+                    image 'node:10.16.0'
+                    args '-v /etc/localtime:/etc/localtime -v /var/jenkins_home/workspace/${JOB_NAME}/node_modules/:/var/jenkins_home/workspace/${JOB_NAME}/node_modules/ -v /var/jenkins_home/workspace/${JOB_NAME}/dist/:/var/jenkins_home/workspace/${JOB_NAME}/dist/'
+                }
+            }
+            steps {
+                sh 'echo "Asia/Shanghai" > /etc/timezone'
+                sh 'npm config set registry https://registry.npm.taobao.org'
+                sh 'npm set chromedriver_cdnurl https://npm.taobao.org/mirrors/chromedriver'
+                sh 'npm install'
+                sh 'npm run build --ENV_ROOTAPI 1'
+            }
+        }
+        stage('BuildDockerImage') {
+            agent {
+                docker {
+                    image 'docker'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /root/.m2:/root/.m2 -v /etc/localtime:/etc/localtime -v /var/jenkins_home/workspace/${JOB_NAME}/dist/:/var/jenkins_home/workspace/${JOB_NAME}/dist/'
+                }
+            }
+            steps {
+                sh 'ls -alh'
+                sh 'chmod 777 Jenkinsfile.sh && dos2unix Jenkinsfile.sh && source Jenkinsfile.sh'
+            }
+        }
+    }
+}

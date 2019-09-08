@@ -1,0 +1,33 @@
+上游:
+	MySQL
+
+全量(导出导入)/增量(binlog)同步	
+	MyDumper/MyLoader/Syncer
+
+数据库:	
+	TiDB
+		TiDB	计算
+		TiPD	调度/元数据
+		TiKV	存储
+		TiDB-Binlog
+
+消息队列:
+	Kafka
+
+流计算框架:
+	Flink
+
+大数据框架:
+	Spark(SQL)
+
+上游MySQL开启binlog
+通过MyDumper/MyLoader/Syncer 同步 MySQL 数据 到TiDB中
+TiDB启用TiDB-Binlog
+TiDB-Binlog发送增量Binlog到Kafka
+
+
+
+
+
+
+
