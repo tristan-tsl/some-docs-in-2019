@@ -1,0 +1,10 @@
+# 创建基础目录
+mkdir -p /data/tristan/istio && cd /data/tristan/istio
+
+# 下载istio安装包文件(共30M大小,约5分钟)
+curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.2.5 sh -
+
+# 软链接
+chmod +x /data/tristan/istio/istio-1.2.5/bin/istioctl
+ln -s /data/tristan/istio/istio-1.2.5/bin/istioctl /usr/bin/istioctl
+

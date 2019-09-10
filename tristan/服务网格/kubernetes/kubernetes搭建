@@ -1,0 +1,23 @@
+# 基于rancher搭建
+# 创建基础目录
+mkdir -p /data/tristan/rancher && cd /data/tristan/rancher
+
+# 拉取镜像
+docker pull rancher/rancher:stable
+
+docker run -d --name rancher -v /data/tristan/rancher/:/var/lib/rancher/ --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:stable
+docker logs -f rancher
+
+# 在服务器上直接安装kubectl
+
+
+# 重置
+docker stop rancher
+docker stop $(docker ps -qa)
+docker rm $(docker ps -qa)
+rm -rf /data/tristan/rancher
+
+
+sudo docker run -d --privileged --restart=unless-stopped --net=host -v /etc/kubernetes:/etc/kubernetes -v /var/run:/var/run rancher/rancher-agent:v2.2.8 --server https://192.168.86.211 --token j7vpbcfgp2b8whz2wtgpmmv5kc57npbg567wz92nl8fnv76g7blg7x --ca-checksum 49f3454febf142b670ed1ee085d86c1f2250d31f216609eb589fe32d3e23a108 --etcd --controlplane
+
+sudo docker run -d --privileged --restart=unless-stopped --net=host -v /etc/kubernetes:/etc/kubernetes -v /var/run:/var/run rancher/rancher-agent:v2.2.8 --server https://192.168.86.211 --token j7vpbcfgp2b8whz2wtgpmmv5kc57npbg567wz92nl8fnv76g7blg7x --ca-checksum 49f3454febf142b670ed1ee085d86c1f2250d31f216609eb589fe32d3e23a108 --worker

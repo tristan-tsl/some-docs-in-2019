@@ -1,0 +1,5 @@
+mkdir -p /data/tristan/helm && cd /data/tristan/helm
+yum install -y wget
+wget https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
+tar -zvxf helm-v2.14.3-linux-amd64.tar.gz
+mv helm-v2.14.3-linux-amd64/
