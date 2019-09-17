@@ -2,18 +2,18 @@ groups:
 - name: node_exporter
   rules:
   - alert: HighCpuLoad
-    expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 30
-    for: 0m
+    expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+    for: 5m
     labels:
       severity: warning
     annotations:
       summary: "High CPU load (instance {{ $labels.instance }})"
-      description: "CPU load is > 20%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }} tristan update here"
+      description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }} tristan update here"
   - alert: OutOfMemory
-    expr: (node_memory_MemFree_bytes + node_memory_Cached_bytes + node_memory_Buffers_bytes) / node_memory_MemTotal_bytes * 100 < 30
-    for: 0m
+    expr: (node_memory_MemFree_bytes + node_memory_Cached_bytes + node_memory_Buffers_bytes) / node_memory_MemTotal_bytes * 100 < 80
+    for: 5m
     labels:
       severity: warning
     annotations:
       summary: "Out of memory (instance {{ $labels.instance }})"
-      description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      description: "Node memory is filling up (< 80% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

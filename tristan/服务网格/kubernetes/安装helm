@@ -2,4 +2,16 @@ mkdir -p /data/tristan/helm && cd /data/tristan/helm
 yum install -y wget
 wget https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
 tar -zvxf helm-v2.14.3-linux-amd64.tar.gz
-mv helm-v2.14.3-linux-amd64/
+mv linux-amd64/helm /usr/local/bin/helm
+
+
+确认kubectl指令能够使用
+初始化:
+helm init --upgrade --tiller-image cnych/tiller:v2.10.0 --stable-repo-url https://cnych.github.io/kube-charts-mirror/
+
+验证:
+helm version
+
+
+参考文档:
+https://www.qikqiak.com/k8s-book/docs/42.Helm安装.html

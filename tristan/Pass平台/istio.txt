@@ -1,0 +1,10 @@
+机器:
+	192.168.86.211
+	controlplane、etcd、worker: 192.168.86.212
+	worker: 192.168.86.210 192.168.86.213
+
+根目录:
+	/data/tristan/istio/istio-1.2.5
+
+安装:
+	

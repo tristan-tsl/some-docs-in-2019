@@ -1,0 +1,36 @@
+kubectl label namespace default istio-injection=enabled
+kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+
+查看
+kubectl get services
+
+验证是否正在运行
+kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}') -c ratings -- curl productpage:9080/productpage | grep -o "<title>.*</title>"
+
+安装网关
+kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+
+查看
+kubectl get gateway
+
+查看
+kubectl get svc istio-ingressgateway -n istio-system
+
+设置环境变量
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
+export INGRESS_HOST=192.168.86.212
+
+export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
+
+访问
+curl -s http://${GATEWAY_URL}/productpage | grep -o "<title>.*</title>"
+
+定义规则
+kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+
+查看
+kubectl get destinationrules -o yaml
+
+清理
+samples/bookinfo/platform/kube/cleanup.sh

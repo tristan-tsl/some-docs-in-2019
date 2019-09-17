@@ -11,6 +11,7 @@ docker rm   grafana
 mkdir -p /data/tristan/grafana/data
 chmod 777 /data/tristan/grafana/data
 docker run -d --name=grafana -p 3000:3000 -v /data/tristan/grafana/data:/var/lib/grafana -v /data/tristan/grafana/configs/grafana.ini:/etc/grafana/grafana.ini --restart=always grafana/grafana
+docker logs -f grafana
 
 docker cp grafana:/etc/grafana/grafana.ini /data/tristan/grafana/configs/grafana.ini
 

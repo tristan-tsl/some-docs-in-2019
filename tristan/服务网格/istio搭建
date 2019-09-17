@@ -8,3 +8,18 @@ curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.2.5 sh -
 chmod +x /data/tristan/istio/istio-1.2.5/bin/istioctl
 ln -s /data/tristan/istio/istio-1.2.5/bin/istioctl /usr/bin/istioctl
 
+
+机器:
+	192.168.86.211
+	controlplane、etcd、worker: 192.168.86.212
+	worker: 192.168.86.210 192.168.86.213
+
+根目录:
+	/data/tristan/istio/istio-1.2.5
+
+安装
+
+kubectl create namespace istio-system
+helm template install/kubernetes/helm/istio-init --name istio-init --namespace istio-system | kubectl apply -f -
+kubectl get crds | grep 'istio.io' | wc -l
+helm template install/kubernetes/helm/istio --name istio --namespace istio-system | kubectl apply -f -

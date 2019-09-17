@@ -4,7 +4,7 @@ wget https://github.com/prometheus/prometheus/releases/download/v2.12.0/promethe
 
 docker pull prom/prometheus:v2.12.0
 
-mkdir -p /data/tristan/prometheus/configs/ && cd /data/tristan/prometheus/configs/
+mkdir -p /data/tristan/prometheus/configs/rule_files && cd /data/tristan/prometheus/configs/rule_files
 mv prometheus.yml /data/tristan/prometheus/configs/prometheus.yml
 
 
