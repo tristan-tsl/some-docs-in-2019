@@ -22,8 +22,11 @@ yum install -y kubectl
 
 mkdir -p ~/.kube && cd ~/.kube
 
-vi config
 
+
+vi config
+rm -rf ~/.kube/config
+vi ~/.kube/config
 下载 ~/.kube/config
 
 ```

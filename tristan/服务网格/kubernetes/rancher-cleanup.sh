@@ -18,3 +18,4 @@ rm -rf /etc/ceph \
      /var/log/containers \
      /var/log/pods \
      /var/run/calico
+docker ps -a
