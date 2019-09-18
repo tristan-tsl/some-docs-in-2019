@@ -21,3 +21,6 @@ rm -rf /data/tristan/rancher
 sudo docker run -d --privileged --restart=unless-stopped --net=host -v /etc/kubernetes:/etc/kubernetes -v /var/run:/var/run rancher/rancher-agent:v2.2.8 --server https://192.168.86.211 --token j7vpbcfgp2b8whz2wtgpmmv5kc57npbg567wz92nl8fnv76g7blg7x --ca-checksum 49f3454febf142b670ed1ee085d86c1f2250d31f216609eb589fe32d3e23a108 --etcd --controlplane
 
 sudo docker run -d --privileged --restart=unless-stopped --net=host -v /etc/kubernetes:/etc/kubernetes -v /var/run:/var/run rancher/rancher-agent:v2.2.8 --server https://192.168.86.211 --token j7vpbcfgp2b8whz2wtgpmmv5kc57npbg567wz92nl8fnv76g7blg7x --ca-checksum 49f3454febf142b670ed1ee085d86c1f2250d31f216609eb589fe32d3e23a108 --worker
+
+注意修改NodePorter端口范围
+1-65535
