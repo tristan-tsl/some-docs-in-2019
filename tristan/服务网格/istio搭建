@@ -26,7 +26,7 @@ ln -s /data/tristan/istio/istio-1.3.0/bin/istioctl /usr/bin/istioctl
 	/data/tristan/istio/istio-1.3.0
 
 安装
-
+# 修改配置文件
 vi /data/tristan/istio/istio-1.3.0/install/kubernetes/helm/istio/values.yaml
 
 nodeagent:
@@ -39,6 +39,10 @@ tracing:
   enabled: true
 kiali:
   enabled: true
+
+install/kubernetes/helm/istio/charts/gateways/values.yaml
+
+
 
 kubectl create namespace istio-system
 helm template install/kubernetes/helm/istio-init --name istio-init --namespace istio-system | kubectl apply -f -

@@ -1,4 +1,4 @@
-cd /data/tristan/istio/istio-1.2.5
+cd /data/tristan/istio/istio-1.3.0
 
 helm template install/kubernetes/helm/istio --name istio --namespace istio-system | kubectl delete -f -
 kubectl delete namespace istio-system

@@ -23,6 +23,8 @@ export INGRESS_HOST=192.168.86.212
 
 export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
 
+echo $GATEWAY_URL
+
 访问
 curl -s http://${GATEWAY_URL}/productpage | grep -o "<title>.*</title>"
 
