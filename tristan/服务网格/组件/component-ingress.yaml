@@ -1,0 +1,57 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: jaeger-query
+spec:
+  rules:
+  - host: istio.jaeger.yibainetworklocal.com
+    http:
+      paths:
+      - backend:
+          serviceName: jaeger-query
+          servicePort: 16686
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus
+spec:
+  rules:
+  - host: istio.prometheus.yibainetworklocal.com
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus
+          servicePort: 9090
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+spec:
+  rules:
+  - host: istio.grafana.yibainetworklocal.com
+    http:
+      paths:
+      - backend:
+          serviceName: grafana
+          servicePort: 3000
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kiali
+spec:
+  rules:
+  - host: istio.kiali.yibainetworklocal.com
+    http:
+      paths:
+      - backend:
+          serviceName: kiali
+          servicePort: 20001
+
+
+

@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mynginx
+  labels:
+    app: mynginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: mynginx
+      labels:
+        app: mynginx
+    spec:
+      containers:
+        - name: mynginx
+          image: nginx
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: mynginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mynginx
+spec:
+  selector:
+    app: mynginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: mynginx
+spec:
+  rules:
+  - host: mynginx.yibainetworklocal.com
+    http:
+      paths:
+      - backend:
+          serviceName: mynginx
+          servicePort: 80
