@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{.Release.Name}}-configmap-1
+data:
+    myvalue: "Hello World"
+    testvalue: {{quote .Values.testValue}}
+    testvalue1: {{.Values.testValue | quote}}

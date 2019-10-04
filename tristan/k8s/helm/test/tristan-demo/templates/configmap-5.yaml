@@ -1,0 +1,14 @@
+{{/** 测试一个公共模板 */}}
+{{define "base.labels"}}
+    labels:
+        generator: helm
+        date: {{ now | htmlDate }}
+{{- end -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{.Release.Name}}-configmap-2
+data:
+    myvalue: "Hello World"
+    {{template "base.labels" .}}
+    {{include "base.labels" . | indent 2}}

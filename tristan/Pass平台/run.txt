@@ -1,10 +1,11 @@
 docker login --username=ctnuser@yibainetwork registry.cn-shenzhen.aliyuncs.com
-docker pull registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1367_201909170950
+docker pull registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
 docker stop pass
 docker rm   pass
 
 mkdir -p  /data/tristan/projects/pass/configs
 mkdir -p  /data/tristan/projects/pass/logs
+mkdir -p  /data/tristan/projects/pass/temp
 
 docker run \
     --network some-network \
@@ -13,10 +14,11 @@ docker run \
     -e devops_platform_project_crypto_key=FTxo9FuuJUc81_cfpKquIUmqw3KMaMaq9R8cKYD_Sqg= \
     -v /data/tristan/projects/pass/configs/:/usr/src/app/configs/ \
     -v /data/tristan/projects/pass/logs/:/usr/src/app/logs/ \
+    -v /data/tristan/projects/pass/temp/:/usr/src/app/temp/ \
     -v /etc/localtime:/etc/localtime:ro \
     -p 80:8080 \
      -d \
-    registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1367_201909170950
+    registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
 	
 	
 docker logs -f pass

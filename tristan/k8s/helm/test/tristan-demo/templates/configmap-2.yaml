@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{.Release.Name}}-configmap-2
+data:
+    myvalue: "Hello World"
+        {{- if .Values.conditionValueTrue -}}
+    testvalue: {{quote .Values.testValue}}
+        {{- else if .Values.conditionValueTrue -}}
+    testvalue1: {{quote .Values.testValue}}
+        {{- end -}}

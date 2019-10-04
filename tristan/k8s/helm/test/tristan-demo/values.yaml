@@ -1,0 +1,13 @@
+testValue: "testValue"
+treeValue:
+  treeValue1: "testValue"
+conditionValueTrue: true
+conditionValueFalse: false
+listValue:
+  - "value1"
+  - "value2"
+  - "value3"
+objectValue:
+  key1: "value1"
+  key2: "value2"
+  key3: "value3"

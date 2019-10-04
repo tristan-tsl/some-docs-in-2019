@@ -1,0 +1,10 @@
+# 中国大陆镜像安装命令（安装后记得执行docker tag命令以进行重命名）
+docker pull xd2idwf5.mirror.aliyuncs.com/star7th/showdoc
+docker tag xd2idwf5.mirror.aliyuncs.com/star7th/showdoc:latest star7th/showdoc:latest
+##后续命令无论使用官方镜像还是加速镜像都需要执行
+#新建存放showdoc数据的目录
+mkdir -p /data/tristan/showdoc/data
+mkdir -p /data/tristan/showdoc/data/html
+chmod  -R 777 /data/tristan/showdoc/data
+#启动showdoc容器
+docker run -d --name showdoc -p 4999:80 -v /data/tristan/showdoc/data/html:/var/www/html/      star7th/showdoc
