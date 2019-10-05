@@ -24,7 +24,6 @@ mkdir -p ~/.kube && cd ~/.kube
 
 
 
-vi config
 rm -rf ~/.kube/config
 vi ~/.kube/config
 下载 ~/.kube/config

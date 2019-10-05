@@ -1,0 +1,1 @@
+kubectl label nodes 192.168.86.213 type=outer

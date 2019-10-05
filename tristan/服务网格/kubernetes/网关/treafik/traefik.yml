@@ -1,8 +1,8 @@
 ---
-apiVersion: extensions/v1beta1
 kind: DaemonSet
+apiVersion: extensions/v1beta1
 metadata:
-  name: traefik-ingress-lb
+  name: traefik-ingress-controller
   namespace: kube-system
   labels:
     k8s-app: traefik-ingress-lb
@@ -13,23 +13,30 @@ spec:
         k8s-app: traefik-ingress-lb
         name: traefik-ingress-lb
     spec:
+      nodeSelector:
+        type: outer
+      serviceAccountName: traefik-ingress-controller
       terminationGracePeriodSeconds: 60
       hostNetwork: true
-      restartPolicy: Always
-      serviceAccountName: ingress
       containers:
-        - image: traefik
+        - image: traefik:1.7
           name: traefik-ingress-lb
           ports:
             - name: http
               containerPort: 80
               hostPort: 80
+            - name: https
+              containerPort: 443
+              hostPort: 443
             - name: admin
               containerPort: 8580
               hostPort: 8580
           args:
             - --web
             - --web.address=:8580
+            - --api
             - --kubernetes
-      nodeSelector:
-        type: outer
+            - --logLevel=INFO
+            - --defaultentrypoints=http,https
+            - --entrypoints=Name:https Address::443 TLS
+            - --entrypoints=Name:http Address::80
