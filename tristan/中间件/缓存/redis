@@ -6,5 +6,6 @@ mv -f redis.conf /data/tristan/redis/config/redis.conf
 
 docker stop redis
 docker rm   redis
+docker run --name redis -p 6379:6379 -d --restart=always redis:latest redis-server --appendonly yes --requirepass "tristan123"
 docker run -v /data/tristan/redis/config/redis.conf:/usr/local/etc/redis/redis.conf -p 6379:6379 --name redis -d redis redis-server /usr/local/etc/redis/redis.conf
 docker logs -f redis

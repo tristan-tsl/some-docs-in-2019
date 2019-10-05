@@ -7,6 +7,8 @@ mkdir -p  /data/tristan/projects/pass/configs
 mkdir -p  /data/tristan/projects/pass/logs
 mkdir -p  /data/tristan/projects/pass/temp
 
+mv -f application.yml /data/tristan/projects/pass/configs/application.yml
+
 docker run \
     --network some-network \
     --name pass \
@@ -19,12 +21,29 @@ docker run \
     -p 80:8080 \
      -d \
     registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
+
+
+docker run \
+    --network some-network \
+    --name pass \
+    --restart=always \
+    -e devops_platform_project_crypto_key=DGYAMW6jVw2ojR-HRx0kMtFt6jYjOgG_AzXLjymK6l4= \
+    -v /data/tristan/projects/pass/configs/:/usr/src/app/configs/ \
+    -v /data/tristan/projects/pass/logs/:/usr/src/app/logs/ \
+    -v /data/tristan/projects/pass/temp/:/usr/src/app/temp/ \
+    -v /etc/localtime:/etc/localtime:ro \
+    -p 80:8080 \
+     -d \
+    registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
 	
+
+docker run -d registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
 	
 docker logs -f pass
 
 
-°²×°ÍøÂç¼à¿Ø
 yum install -y iftop
-²é¿´ÍøÂç¼à¿Ø
 iftop -n
+
+
+-v  /opt/html/donghua:/opt/html/donghua
