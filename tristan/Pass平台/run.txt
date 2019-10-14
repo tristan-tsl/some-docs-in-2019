@@ -1,5 +1,5 @@
 docker login --username=ctnuser@yibainetwork registry.cn-shenzhen.aliyuncs.com
-docker pull registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
+docker pull registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1494_201910141742
 docker stop pass
 docker rm   pass
 
@@ -8,6 +8,8 @@ mkdir -p  /data/tristan/projects/pass/logs
 mkdir -p  /data/tristan/projects/pass/temp
 
 mv -f application.yml /data/tristan/projects/pass/configs/application.yml
+
+product:
 
 docker run \
     --network some-network \
@@ -20,8 +22,10 @@ docker run \
     -v /etc/localtime:/etc/localtime:ro \
     -p 80:8080 \
      -d \
-    registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
+    registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1494_201910141742
 
+
+tes:
 
 docker run \
     --network some-network \
@@ -34,16 +38,12 @@ docker run \
     -v /etc/localtime:/etc/localtime:ro \
     -p 80:8080 \
      -d \
-    registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
+    registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1494_201910141742
 	
 
-docker run -d registry.cn-shenzhen.aliyuncs.com/yibainetwork/devops-platform-product:1440_201909271745
 	
 docker logs -f pass
 
 
 yum install -y iftop
 iftop -n
-
-
--v  /opt/html/donghua:/opt/html/donghua
