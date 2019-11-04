@@ -15,6 +15,6 @@ docker run -d --hostname my-rabbit --name some-rabbit rabbitmq:3-management
 
 docker stop rabbitmq
 docker rm   rabbitmq
-docker run -d --restart=always --hostname rabbitmq --name rabbitmq -p 15672:15672 -e RABBITMQ_DEFAULT_USER=jlyx -e RABBITMQ_DEFAULT_PASS=jlyx2019 rabbitmq:3-management
+docker run -d --restart=always --hostname rabbitmq --name rabbitmq -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=jlyx -e RABBITMQ_DEFAULT_PASS=jlyx2019 rabbitmq:3-management
 
 docker logs -f rabbitmq
